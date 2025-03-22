@@ -1,9 +1,9 @@
-import Hero from "./components/Hero";
+import Portfolio from "./components/portfolio";
 import Starting from "./components/Starting";
 
 export default function Home() {
   return (
     // <Starting/>
-    <Hero/>
+    <Portfolio />
   );
 }

@@ -1,36 +1,44 @@
-"use client"
-import React from 'react'
+"use client";
 
-const Starting = () => {
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-black text-white relative">
-            <div className="text-center px-4 sm:px-6 md:px-8">
-            <h1
-  style={{
-    fontFamily: 'Karantina, sans-serif',
-    letterSpacing: '0px',
-  }}
-  className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold mb-4 transform scale-[1.5] sm:scale-[1.8] md:scale-[2.0] inline-flex"
->
-  {'Portfolio'.split('').map((letter, index) => (
-    <span
-      key={index}
-      className="inline-block animate-letter transition-all duration-300 ease-in-out"
-    >
-      {letter}
-    </span>
-  ))}
-</h1>
-            </div>
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { gsap } from "gsap";
 
-            <style jsx>{`
-  .animate-letter:hover {
-    transform: scaleY(3.1);
-    display: inline-block;
-  }
-`}</style>
-        </div>
-    );
-}
+const SplashScreen = () => {
+  const router = useRouter();
+  const slides = [
+    { text: "FRONT-END", color: "bg-red-600" },
+    { text: "DEVELOPER", color: "bg-blue-600" },
+    { text: "PORTFOLIO", color: "bg-green-600" }
+  ];
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-export default Starting
+  useEffect(() => {
+    const tl = gsap.timeline();
+
+    slides.forEach((_, index) => {
+      tl.to("#text", { opacity: 1, duration: 0.5 })
+        .to("#text", { opacity: 0, duration: 0.5, delay: 0.5, onComplete: () => {
+          setCurrentSlide((prev) => (prev < slides.length - 1 ? prev + 1 : prev));
+        }});
+    });
+
+    tl.eventCallback("onComplete", () => {
+      console.log("Navigating to HomePage...");
+      router.push("components/login");
+    });
+
+    return () => tl.kill(); // Cleanup
+  }, [router, slides.length]);
+
+  // ✅ Ensure `currentSlide` is within bounds
+  const slide = slides[currentSlide] || slides[0];
+
+  return (
+    <div className={`flex justify-center items-center h-screen text-white text-4xl font-bold transition-colors duration-500 ${slide.color}`}>
+      <div id="text" className="opacity-0">{slide.text}</div>
+    </div>
+  );
+};
+
+export default SplashScreen;
