@@ -1,4 +1,4 @@
-import Portfolio from "./components/portfolio";
+import Portfolio from "./components/Portfolio";
 
 export default function Home() {
   return (
