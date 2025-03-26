@@ -215,41 +215,17 @@ export default function Portfolio() {
     <main
       className={`transition-colors duration-300 ${theme === "dark" ? "bg-[#121212] text-white" : "bg-white text-black"} relative`}
     >
-    {/* Custom Cursor */}
-<div
-  ref={cursorRef}
-  className={`fixed w-12 h-12 rounded-full pointer-events-none z-50 mix-blend-difference transition-colors duration-300 ${
-    theme === "dark" ? "bg-[#4B0082]" : "bg-[#FFD700]"
-  }`}
-  style={{
-    transform: "translate(-50%, -50%)",
-    top: 0,
-    left: 0,
-  }}
-/>
-
-
-      {/* Custom Cursor Arrow - REMOVED */}
-      {/* <div
-        ref={cursorArrowRef}
-        className="fixed pointer-events-none z-50"
+      {/* Custom Cursor */}
+      <div
+        ref={cursorRef}
+        className={`fixed w-12 h-12 rounded-full pointer-events-none z-50 mix-blend-difference transition-colors duration-300 ${theme === "dark" ? "bg-[#4B0082]" : "bg-[#FFD700]"
+          }`}
         style={{
           transform: "translate(-50%, -50%)",
           top: 0,
           left: 0,
         }}
-      >
-        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-          <path 
-            d="M15,5 L25,15 L15,25" 
-            stroke="#FF5C5C" 
-            strokeWidth="2" 
-            fill="none" 
-            strokeLinecap="round"
-            strokeLinejoin="round" 
-          />
-        </svg>
-      </div> */}
+      />
 
       {/* Navigation */}
       <nav className="flex justify-between items-center px-6 py-6">
