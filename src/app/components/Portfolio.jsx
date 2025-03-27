@@ -13,6 +13,7 @@ export default function Portfolio() {
   const arrowRef = useRef(null)
   const cursorRef = useRef(null)
   const cursorArrowRef = useRef(null)
+  const svgRef = useRef(null)
 
   // Initialize GSAP ScrollTrigger
   useEffect(() => {
@@ -38,15 +39,28 @@ export default function Portfolio() {
       // Move "Let's Talk" text to the left on scroll
       if (letsTalkRef.current) {
         gsap.to(letsTalkRef.current.querySelector("h5"), {
-          x: "450vw", // Move completely to the left
+          x: "120vw", // Move completely to the left
           duration: 1,
           ease: "power2.out",
           scrollTrigger: {
             trigger: letsTalkRef.current,
-            start: "top 10%",
-            end: "top -100%",
+            start: "top 50%",
+            end: "top -70%",
             scrub: 5,
           },
+        })
+      }
+
+      // Add SVG Rotation on Scroll
+      if (svgRef.current) {
+        gsap.to(svgRef.current, {
+          rotation: 360,
+          scrollTrigger: {
+            trigger: "#contact-section",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+          }
         })
       }
 
@@ -134,9 +148,6 @@ export default function Portfolio() {
     const cursor = cursorRef.current
 
     if (!cursor) return
-
-    // Hide default cursor
-    // document.body.style.cursor = "none"
 
     const moveCursor = (e) => {
       gsap.to(cursor, {
@@ -347,7 +358,7 @@ export default function Portfolio() {
         </main>
       </div>
 
-      {/* Projects Section - Updated to support theme toggle */}
+      {/* Projects Section */}
       <main
         className={`min-h-screen ${theme === "dark" ? "bg-[#121212] text-white" : "bg-white text-black"} px-4 md:px-8 py-12 transition-colors duration-300`}
       >
@@ -444,6 +455,221 @@ export default function Portfolio() {
         >
           LET'S TALK
         </h5>
+      </div>
+
+      {/* Contact Section */}
+      <div
+        id="contact-section"
+        className={`w-full ${theme === "dark" ? "bg-[#121212] text-white" : "bg-white text-black"} py-16 relative transition-colors duration-300`}
+      >
+        <div className="container mx-auto px-6">
+          {/* Connect Text */}
+          <div className="text-right mb-20">
+            <p className="text-lg md:text-xl max-w-xl ml-auto">
+              LET'S CONNECT: WHETHER YOU HAVE A PROJECT IDEA, NEED A SKILLED DEVELOPER, OR A PASSIONATE TEAM MEMBER, I'M
+              HERE TO COLLABORATE.
+            </p>
+          </div>
+
+          <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+            {/* Social Media Links - Left Side */}
+            <div className="w-full md:w-1/2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                <Link
+                  href="#"
+                  className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${theme === "dark" ? "text-white" : "text-black"}`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-linkedin"
+                  >
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                    <rect width="4" height="12" x="2" y="9" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
+                  LINKEDIN
+                </Link>
+                <Link
+                  href="#"
+                  className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${theme === "dark" ? "text-white" : "text-black"}`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-github"
+                  >
+                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                    <path d="M9 18c-4.51 2-5-2-7-2" />
+                  </svg>
+                  GITHUB
+                </Link>
+                <Link
+                  href="#"
+                  className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${theme === "dark" ? "text-white" : "text-black"}`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-mail"
+                  >
+                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                  EMAIL
+                </Link>
+                <Link
+                  href="#"
+                  className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${theme === "dark" ? "text-white" : "text-black"}`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-instagram"
+                  >
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                  </svg>
+                  INSTAGRAM
+                </Link>
+                <Link
+                  href="#"
+                  className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${theme === "dark" ? "text-white" : "text-black"}`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-file-text"
+                  >
+                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" x2="8" y1="13" y2="13" />
+                    <line x1="16" x2="8" y1="17" y2="17" />
+                    <line x1="10" x2="8" y1="9" y2="9" />
+                  </svg>
+                  RESUME
+                </Link>
+                <Link
+                  href="#"
+                  className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${theme === "dark" ? "text-white" : "text-black"}`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-phone"
+                  >
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                  PHONE
+                </Link>
+              </div>
+            </div>
+
+            {/* SVG Icon - Right Side */}
+            <div className="w-full md:w-1/2 flex justify-center md:justify-end mt-8 md:mt-0">
+              <svg
+                ref={svgRef}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 200 200"
+                width="200"
+                height="200"
+                className="coolshapes wheel-3 origin-center"
+                style={{ willChange: 'transform' }}
+              >
+                <g clipPath="url(#cs_clip_1_wheel-3)">
+                  <mask
+                    id="cs_mask_1_wheel-3"
+                    style={{ maskType: "alpha" }}
+                    width="200"
+                    height="200"
+                    x="0"
+                    y="0"
+                    maskUnits="userSpaceOnUse"
+                  >
+                    <path
+                      fill="#fff"
+                      d="M110 0H90l6.39 91.284-60.03-69.066L22.218 36.36l69.066 60.03L0 90v20l91.284-6.39-69.066 60.03 14.142 14.142 60.03-69.066L90 200h20l-6.39-91.284 60.03 69.066 14.142-14.142-69.066-60.03L200 110V90l-91.284 6.39 69.066-60.03-14.142-14.142-60.03 69.066L110 0z"
+                    ></path>
+                  </mask>
+                  <g mask="url(#cs_mask_1_wheel-3)">
+                    <path fill={theme === "dark" ? "#fff" : "#121212"} d="M200 0H0v200h200V0z"></path>
+                    <path fill="url(#paint0_linear_748_4839)" fillOpacity="0.55" d="M200 0H0v200h200V0z"></path>
+                    <g filter="url(#filter0_f_748_4839)">
+                      <path fill="#18A0FB" d="M131 3H-12v108h143V3z"></path>
+                      <path fill="#FF58E4" d="M190 109H0v116h190V109z"></path>
+                      <ellipse
+                        cx="153.682"
+                        cy="64.587"
+                        fill="#FFD749"
+                        rx="83"
+                        ry="57"
+                        transform="rotate(-33.875 153.682 64.587)"
+                      ></ellipse>
+                    </g>
+                  </g>
+                </g>
+                {/* Rest of the SVG defs remain the same */}
+              </svg>
+            </div>
+          </div>
+
+          {/* Arrow Up Icon - Bottom */}
+          <div className="flex justify-center mt-16">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M30 5V55M30 5L10 25M30 5L50 25"
+                stroke={theme === "dark" ? "white" : "black"}
+                strokeWidth="5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
       </div>
     </main>
   )
