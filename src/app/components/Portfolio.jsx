@@ -274,9 +274,8 @@ export default function Portfolio() {
       {/* Custom Cursor */}
       <div
         ref={cursorRef}
-        className={`fixed w-12 h-12 rounded-full pointer-events-none z-50 mix-blend-difference transition-colors duration-300 ${
-          theme === "dark" ? "bg-[#4B0082]" : "bg-[#FFD700]"
-        }`}
+        className={`fixed w-12 h-12 rounded-full pointer-events-none z-50 mix-blend-difference transition-colors duration-300 ${theme === "dark" ? "bg-[#4B0082]" : "bg-[#FFD700]"
+          }`}
         style={{
           transform: "translate(-50%, -50%)",
           top: 0,
@@ -389,35 +388,6 @@ export default function Portfolio() {
             <span className="text-6xl md:text-8xl font-albert font-extrabold">E</span>
           </div>
           <div className="letter absolute left-[77%] top-[50%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">R</span>
-          </div>
-
-          {/* & DESIGNER */}
-          <div className="letter absolute left-[20%] top-[65%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">&</span>
-          </div>
-          <div className="letter absolute left-[28%] top-[65%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">D</span>
-          </div>
-          <div className="letter absolute left-[36%] top-[65%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">E</span>
-          </div>
-          <div className="letter absolute left-[44%] top-[65%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">S</span>
-          </div>
-          <div className="letter absolute left-[52%] top-[65%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">I</span>
-          </div>
-          <div className="letter absolute left-[56%] top-[65%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">G</span>
-          </div>
-          <div className="letter absolute left-[64%] top-[65%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">N</span>
-          </div>
-          <div className="letter absolute left-[72%] top-[65%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">E</span>
-          </div>
-          <div className="letter absolute left-[80%] top-[65%] cursor-grab active:cursor-grabbing">
             <span className="text-6xl md:text-8xl font-albert font-extrabold">R</span>
           </div>
         </div>
@@ -800,9 +770,8 @@ export default function Portfolio() {
               <a
                 href="/FasaluRahman_Resume.pdf"
                 download="FasaluRahman_Resume.pdf"
-                className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${
-                  theme === "dark" ? "text-white" : "text-black"
-                }`}
+                className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${theme === "dark" ? "text-white" : "text-black"
+                  }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
