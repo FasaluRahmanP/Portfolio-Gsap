@@ -308,89 +308,38 @@ export default function Portfolio() {
 
       {/* Hero Section with Draggable Letters */}
       <div className="flex flex-col md:flex-row justify-between items-center px-6 py-12 md:py-24 min-h-screen relative">
-        {/* CREATIVE with star */}
-        <div className="absolute top-20 left-[10%] md:left-[20%] z-10">
-          <div className="relative inline-block">
-            <div
-              className={`letter-group bg-[#d1ff4f] text-black text-4xl md:text-6xl font-albert font-extrabold py-3 px-4 -rotate-4 relative inline-block cursor-grab active:cursor-grabbing`}
-            >
-              <span className="letter inline-block">C</span>
-              <span className="letter inline-block">R</span>
-              <span className="letter inline-block">E</span>
-              <span className="letter inline-block">A</span>
-              <span className="letter inline-block">T</span>
-              <span className="letter inline-block">I</span>
-              <span className="letter inline-block">V</span>
-              <span className="letter inline-block">E</span>
-              <span
-                className={`absolute top-0 right-0 text-[#d1ff4f] ${theme === "dark" ? "bg-[#121212]" : "bg-white"} translate-x-5 -translate-y-3 rounded-full w-10 h-10 flex justify-center items-center text-5xl font-bold`}
-              >
-                *
-              </span>
-            </div>
-          </div>
-        </div>
 
         {/* Draggable letters container */}
-        <div ref={lettersRef} className="relative w-full h-full">
+        <div ref={lettersRef} className="w-full h-full flex flex-col items-center justify-center gap-6">
           {/* FRONT-END */}
-          <div className="letter absolute left-[10%] top-[35%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">F</span>
-          </div>
-          <div className="letter absolute left-[18%] top-[35%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">R</span>
-          </div>
-          <div className="letter absolute left-[26%] top-[35%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">O</span>
-          </div>
-          <div className="letter absolute left-[34%] top-[35%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">N</span>
-          </div>
-          <div className="letter absolute left-[42%] top-[35%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">T</span>
-          </div>
-          <div className="letter absolute left-[48%] top-[35%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">-</span>
-          </div>
-          <div className="letter absolute left-[52%] top-[35%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">E</span>
-          </div>
-          <div className="letter absolute left-[60%] top-[35%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">N</span>
-          </div>
-          <div className="letter absolute left-[68%] top-[35%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">D</span>
+          <div className="flex items-center justify-center gap-4 md:gap-6">
+            {'FRONT-END'.split('').map((char, index) => (
+              <div
+                key={`frontend-${index}`}
+                className="letter cursor-grab active:cursor-grabbing"
+              >
+                <span className="text-7xl md:text-9xl font-zitti font-extrabold">
+                  {char}
+                </span>
+              </div>
+            ))}
           </div>
 
           {/* DEVELOPER */}
-          <div className="letter absolute left-[15%] top-[50%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">D</span>
-          </div>
-          <div className="letter absolute left-[23%] top-[50%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">E</span>
-          </div>
-          <div className="letter absolute left-[31%] top-[50%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">V</span>
-          </div>
-          <div className="letter absolute left-[39%] top-[50%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">E</span>
-          </div>
-          <div className="letter absolute left-[47%] top-[50%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">L</span>
-          </div>
-          <div className="letter absolute left-[53%] top-[50%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">O</span>
-          </div>
-          <div className="letter absolute left-[61%] top-[50%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">P</span>
-          </div>
-          <div className="letter absolute left-[69%] top-[50%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">E</span>
-          </div>
-          <div className="letter absolute left-[77%] top-[50%] cursor-grab active:cursor-grabbing">
-            <span className="text-6xl md:text-8xl font-albert font-extrabold">R</span>
+          <div className="flex items-center justify-center gap-4 md:gap-6">
+            {'DEVELOPER'.split('').map((char, index) => (
+              <div
+                key={`developer-${index}`}
+                className="letter cursor-grab active:cursor-grabbing"
+              >
+                <span className="text-7xl md:text-9xl font-zitti font-extrabold">
+                  {char}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
+
       </div>
 
       {/* Experience Section */}
