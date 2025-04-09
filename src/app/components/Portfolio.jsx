@@ -4,6 +4,8 @@ import { useEffect, useState, useRef } from "react"
 import Link from "next/link"
 import gsap from "gsap"
 import ScrollTrigger from "gsap/dist/ScrollTrigger"
+import { Draggable } from "gsap/Draggable"
+import Image from "next/image"
 
 export default function Portfolio() {
   const [currentTime, setCurrentTime] = useState("00:00")
@@ -14,11 +16,13 @@ export default function Portfolio() {
   const cursorRef = useRef(null)
   const cursorArrowRef = useRef(null)
   const svgRef = useRef(null)
+  const lettersRef = useRef(null)
+  const containerRef = useRef(null)
 
-  // Initialize GSAP ScrollTrigger
+  // Initialize GSAP ScrollTrigger and Draggable
   useEffect(() => {
     if (typeof window !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger)
+      gsap.registerPlugin(ScrollTrigger, Draggable)
 
       // Initialize the animation after the component mounts
       const experienceTitle = document.querySelector("#experience-section h1")
@@ -46,7 +50,7 @@ export default function Portfolio() {
             trigger: letsTalkRef.current,
             start: "top 50%",
             end: "top -70%",
-            scrub: 5,
+            scrub: 10,
           },
         })
       }
@@ -60,9 +64,49 @@ export default function Portfolio() {
             start: "top bottom",
             end: "bottom top",
             scrub: 1,
-          }
+          },
         })
       }
+
+      // Make each letter draggable
+      const letters = lettersRef.current?.querySelectorAll(".letter") || []
+
+      letters.forEach((letter) => {
+        Draggable.create(letter, {
+          type: "x,y",
+          edgeResistance: 0.65,
+          bounds: containerRef.current,
+          inertia: true,
+          onDragStart: function () {
+            gsap.to(this.target, { scale: 1.1, duration: 0.2, zIndex: 50 })
+
+            // Show the drag label
+            const dragLabel = document.createElement("div")
+            dragLabel.className = "drag-label"
+            dragLabel.textContent = "Drag"
+            dragLabel.style.position = "absolute"
+            dragLabel.style.top = "-40px"
+            dragLabel.style.left = "0"
+            dragLabel.style.backgroundColor = "white"
+            dragLabel.style.color = "black"
+            dragLabel.style.padding = "8px 16px"
+            dragLabel.style.borderRadius = "20px"
+            dragLabel.style.fontSize = "14px"
+            dragLabel.style.fontWeight = "500"
+            dragLabel.style.zIndex = "100"
+            this.target.appendChild(dragLabel)
+          },
+          onDragEnd: function () {
+            gsap.to(this.target, { scale: 1, duration: 0.2, zIndex: 10 })
+
+            // Remove the drag label
+            const dragLabel = this.target.querySelector(".drag-label")
+            if (dragLabel) {
+              dragLabel.remove()
+            }
+          },
+        })
+      })
 
       // Return cleanup function
       return () => {
@@ -224,13 +268,15 @@ export default function Portfolio() {
 
   return (
     <main
+      ref={containerRef}
       className={`transition-colors duration-300 ${theme === "dark" ? "bg-[#121212] text-white" : "bg-white text-black"} relative`}
     >
       {/* Custom Cursor */}
       <div
         ref={cursorRef}
-        className={`fixed w-12 h-12 rounded-full pointer-events-none z-50 mix-blend-difference transition-colors duration-300 ${theme === "dark" ? "bg-[#4B0082]" : "bg-[#FFD700]"
-          }`}
+        className={`fixed w-12 h-12 rounded-full pointer-events-none z-50 mix-blend-difference transition-colors duration-300 ${
+          theme === "dark" ? "bg-[#4B0082]" : "bg-[#FFD700]"
+        }`}
         style={{
           transform: "translate(-50%, -50%)",
           top: 0,
@@ -261,15 +307,22 @@ export default function Portfolio() {
         </button>
       </nav>
 
-      {/* Hero Section */}
-      <div className="flex flex-col md:flex-row justify-between items-center px-6 py-12 md:py-24 min-h-screen">
-        {/* Left Section */}
-        <div className="md:w-1/2 text-center md:text-left ml-16">
-          <div className="mb-4 relative inline-block">
+      {/* Hero Section with Draggable Letters */}
+      <div className="flex flex-col md:flex-row justify-between items-center px-6 py-12 md:py-24 min-h-screen relative">
+        {/* CREATIVE with star */}
+        <div className="absolute top-20 left-[10%] md:left-[20%] z-10">
+          <div className="relative inline-block">
             <div
-              className={`bg-[#d1ff4f] text-black text-4xl md:text-6xl font-albert font-extrabold py-3 px-4 -rotate-4 relative inline-block`}
+              className={`letter-group bg-[#d1ff4f] text-black text-4xl md:text-6xl font-albert font-extrabold py-3 px-4 -rotate-4 relative inline-block cursor-grab active:cursor-grabbing`}
             >
-              CREATIVE
+              <span className="letter inline-block">C</span>
+              <span className="letter inline-block">R</span>
+              <span className="letter inline-block">E</span>
+              <span className="letter inline-block">A</span>
+              <span className="letter inline-block">T</span>
+              <span className="letter inline-block">I</span>
+              <span className="letter inline-block">V</span>
+              <span className="letter inline-block">E</span>
               <span
                 className={`absolute top-0 right-0 text-[#d1ff4f] ${theme === "dark" ? "bg-[#121212]" : "bg-white"} translate-x-5 -translate-y-3 rounded-full w-10 h-10 flex justify-center items-center text-5xl font-bold`}
               >
@@ -277,11 +330,95 @@ export default function Portfolio() {
               </span>
             </div>
           </div>
+        </div>
 
-          <div className="text-4xl sm:text-5xl md:text-7xl font-albert font-extrabold leading-[1.1]">
-            <div>FRONT-END</div>
-            <div>DEVELOPER</div>
-            <div>& DESIGNER</div>
+        {/* Draggable letters container */}
+        <div ref={lettersRef} className="relative w-full h-full">
+          {/* FRONT-END */}
+          <div className="letter absolute left-[10%] top-[35%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">F</span>
+          </div>
+          <div className="letter absolute left-[18%] top-[35%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">R</span>
+          </div>
+          <div className="letter absolute left-[26%] top-[35%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">O</span>
+          </div>
+          <div className="letter absolute left-[34%] top-[35%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">N</span>
+          </div>
+          <div className="letter absolute left-[42%] top-[35%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">T</span>
+          </div>
+          <div className="letter absolute left-[48%] top-[35%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">-</span>
+          </div>
+          <div className="letter absolute left-[52%] top-[35%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">E</span>
+          </div>
+          <div className="letter absolute left-[60%] top-[35%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">N</span>
+          </div>
+          <div className="letter absolute left-[68%] top-[35%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">D</span>
+          </div>
+
+          {/* DEVELOPER */}
+          <div className="letter absolute left-[15%] top-[50%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">D</span>
+          </div>
+          <div className="letter absolute left-[23%] top-[50%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">E</span>
+          </div>
+          <div className="letter absolute left-[31%] top-[50%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">V</span>
+          </div>
+          <div className="letter absolute left-[39%] top-[50%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">E</span>
+          </div>
+          <div className="letter absolute left-[47%] top-[50%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">L</span>
+          </div>
+          <div className="letter absolute left-[53%] top-[50%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">O</span>
+          </div>
+          <div className="letter absolute left-[61%] top-[50%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">P</span>
+          </div>
+          <div className="letter absolute left-[69%] top-[50%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">E</span>
+          </div>
+          <div className="letter absolute left-[77%] top-[50%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">R</span>
+          </div>
+
+          {/* & DESIGNER */}
+          <div className="letter absolute left-[20%] top-[65%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">&</span>
+          </div>
+          <div className="letter absolute left-[28%] top-[65%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">D</span>
+          </div>
+          <div className="letter absolute left-[36%] top-[65%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">E</span>
+          </div>
+          <div className="letter absolute left-[44%] top-[65%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">S</span>
+          </div>
+          <div className="letter absolute left-[52%] top-[65%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">I</span>
+          </div>
+          <div className="letter absolute left-[56%] top-[65%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">G</span>
+          </div>
+          <div className="letter absolute left-[64%] top-[65%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">N</span>
+          </div>
+          <div className="letter absolute left-[72%] top-[65%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">E</span>
+          </div>
+          <div className="letter absolute left-[80%] top-[65%] cursor-grab active:cursor-grabbing">
+            <span className="text-6xl md:text-8xl font-albert font-extrabold">R</span>
           </div>
         </div>
       </div>
@@ -352,7 +489,15 @@ export default function Portfolio() {
             </div>
 
             <div className="mt-8 md:mt-0">
-              <div className="bg-indigo-600 h-64 w-64"></div>
+              <div className="overflow-hidden rounded-lg h-64 w-64">
+                <Image
+                  src="/placeholder.svg?height=256&width=256"
+                  alt="Profile"
+                  width={256}
+                  height={256}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
             </div>
           </div>
         </main>
@@ -378,7 +523,15 @@ export default function Portfolio() {
               </p>
             </div>
             <div className="md:w-1/2">
-              <div className="aspect-square bg-indigo-700 w-full max-w-md mx-auto"></div>
+              <div className="aspect-square w-full max-w-md mx-auto overflow-hidden rounded-lg">
+                <Image
+                  src="/placeholder.svg?height=500&width=500"
+                  alt="Fit Feet E-Commerce Website"
+                  width={500}
+                  height={500}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
             </div>
           </section>
 
@@ -397,7 +550,15 @@ export default function Portfolio() {
               </p>
             </div>
             <div className="md:w-1/2">
-              <div className="aspect-square bg-indigo-700 w-full max-w-md mx-auto"></div>
+              <div className="aspect-square w-full max-w-md mx-auto overflow-hidden rounded-lg">
+                <Image
+                  src="/placeholder.svg?height=500&width=500"
+                  alt="Thread Clone App"
+                  width={500}
+                  height={500}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
             </div>
           </section>
 
@@ -416,7 +577,15 @@ export default function Portfolio() {
               </p>
             </div>
             <div className="md:w-1/2">
-              <div className="aspect-square bg-indigo-700 w-full max-w-md mx-auto"></div>
+              <div className="aspect-square w-full max-w-md mx-auto overflow-hidden rounded-lg">
+                <Image
+                  src="/placeholder.svg?height=500&width=500"
+                  alt="Pick Me Live Project"
+                  width={500}
+                  height={500}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
             </div>
           </section>
         </div>
@@ -473,9 +642,7 @@ export default function Portfolio() {
 
           <div className="flex flex-col md:flex-row justify-between items-start gap-8">
             {/* Empty Left Side - Social media icons moved to bottom */}
-            <div className="w-full md:w-1/2">
-              {/* This space intentionally left blank */}
-            </div>
+            <div className="w-full md:w-1/2">{/* This space intentionally left blank */}</div>
 
             {/* SVG Icon - Right Side */}
             <div className="w-full md:w-1/2 flex justify-center md:justify-end mt-8 md:mt-0">
@@ -487,7 +654,7 @@ export default function Portfolio() {
                 width="200"
                 height="200"
                 className="coolshapes wheel-3 origin-center"
-                style={{ willChange: 'transform' }}
+                style={{ willChange: "transform" }}
               >
                 <g clipPath="url(#cs_clip_1_wheel-3)">
                   <mask
@@ -521,7 +688,39 @@ export default function Portfolio() {
                     </g>
                   </g>
                 </g>
-                {/* Rest of the SVG defs remain the same */}
+                <defs>
+                  <filter
+                    id="filter0_f_748_4839"
+                    width="302"
+                    height="322"
+                    x="-62"
+                    y="-47"
+                    colorInterpolationFilters="sRGB"
+                    filterUnits="userSpaceOnUse"
+                  >
+                    <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
+                    <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                    <feGaussianBlur result="effect1_foregroundBlur_748_4839" stdDeviation="25"></feGaussianBlur>
+                  </filter>
+                  <linearGradient
+                    id="paint0_linear_748_4839"
+                    x1="100"
+                    x2="100"
+                    y1="0"
+                    y2="200"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stopColor="#18A0FB"></stop>
+                    <stop offset="0.55" stopColor="#FF58E4"></stop>
+                    <stop offset="1" stopColor="#FFD749"></stop>
+                  </linearGradient>
+                  <clipPath id="cs_clip_1_wheel-3">
+                    <path
+                      fill="#fff"
+                      d="M110 0H90l6.39 91.284-60.03-69.066L22.218 36.36l69.066 60.03L0 90v20l91.284-6.39-69.066 60.03 14.142 14.142 60.03-69.066L90 200h20l-6.39-91.284 60.03 69.066 14.142-14.142-69.066-60.03L200 110V90l-91.284 6.39 69.066-60.03-14.142-14.142-60.03 69.066L110 0z"
+                    ></path>
+                  </clipPath>
+                </defs>
               </svg>
             </div>
           </div>
@@ -601,8 +800,9 @@ export default function Portfolio() {
               <a
                 href="/FasaluRahman_Resume.pdf"
                 download="FasaluRahman_Resume.pdf"
-                className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${theme === "dark" ? "text-white" : "text-black"
-                  }`}
+                className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${
+                  theme === "dark" ? "text-white" : "text-black"
+                }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -624,7 +824,6 @@ export default function Portfolio() {
                 </svg>
                 RESUME
               </a>
-
             </div>
 
             {/* Arrow Icon - Bottom Right */}
