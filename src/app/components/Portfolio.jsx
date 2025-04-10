@@ -745,7 +745,12 @@ export default function Portfolio() {
             </div>
 
             {/* Arrow Icon - Bottom Right */}
-            <div>
+            <div
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="cursor-pointer"
+            >
               <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M30 5V55M30 5L10 25M30 5L50 25"
@@ -756,6 +761,7 @@ export default function Portfolio() {
                 />
               </svg>
             </div>
+
           </div>
         </div>
       </div>
