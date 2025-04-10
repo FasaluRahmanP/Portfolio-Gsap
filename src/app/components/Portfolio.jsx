@@ -9,7 +9,6 @@ import Image from "next/image"
 
 export default function Portfolio() {
   const [currentTime, setCurrentTime] = useState("00:00")
-  const [theme, setTheme] = useState("dark")
   const experienceRef = useRef(null)
   const letsTalkRef = useRef(null)
   const arrowRef = useRef(null)
@@ -252,30 +251,15 @@ export default function Portfolio() {
     }
   }, [])
 
-  // Theme Toggle Function
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "dark"
-    setTheme(savedTheme)
-    document.documentElement.classList.toggle("dark", savedTheme === "dark")
-  }, [])
-
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark"
-    setTheme(newTheme)
-    localStorage.setItem("theme", newTheme)
-    document.documentElement.classList.toggle("dark", newTheme === "dark")
-  }
-
   return (
     <main
       ref={containerRef}
-      className={`transition-colors duration-300 ${theme === "dark" ? "bg-[#121212] text-white" : "bg-white text-black"} relative`}
+      className="bg-[#121212] text-white relative"
     >
       {/* Custom Cursor */}
       <div
         ref={cursorRef}
-        className={`fixed w-12 h-12 rounded-full pointer-events-none z-50 mix-blend-difference transition-colors duration-300 ${theme === "dark" ? "bg-[#4B0082]" : "bg-[#FFD700]"
-          }`}
+        className="fixed w-12 h-12 rounded-full pointer-events-none z-50 mix-blend-difference transition-colors duration-300 bg-[#4B0082]"
         style={{
           transform: "translate(-50%, -50%)",
           top: 0,
@@ -296,14 +280,6 @@ export default function Portfolio() {
             </Link>
           ))}
         </div>
-
-        {/* Light/Dark Mode Toggle Button */}
-        <button
-          onClick={toggleTheme}
-          className="px-4 py-2 bg-[#d1ff4f] text-black font-semibold rounded-lg hover:opacity-80 transition-opacity"
-        >
-          {theme === "dark" ? "Light Mode ☀️" : "Dark Mode 🌙"}
-        </button>
       </nav>
 
       {/* Hero Section with Draggable Letters */}
@@ -345,14 +321,14 @@ export default function Portfolio() {
       {/* Experience Section */}
       <div id="experience-section" ref={experienceRef} className="h-screen w-full overflow-hidden">
         <h1
-          className={`text-[40vw] uppercase font-zitti font-semibold ${theme === "dark" ? "text-white" : "text-black"} whitespace-nowrap`}
+          className="text-[40vw] uppercase font-zitti font-semibold text-white whitespace-nowrap"
         >
           PORTFOL!O
         </h1>
       </div>
 
       {/* Developer Profile Section */}
-      <div className={`min-h-screen p-8 ${theme === "dark" ? "text-white" : "text-black"}`}>
+      <div className="min-h-screen p-8 text-white">
         <main className="max-w-4xl mx-auto mt-10">
           {/* Header section */}
           <div>
@@ -371,7 +347,7 @@ export default function Portfolio() {
 
           {/* Description section */}
           <div className="mt-8">
-            <p className={`max-w-2xl ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
+            <p className="max-w-2xl text-gray-400">
               I'm a dedicated web developer with a passion for creating intuitive and engaging digital experiences. With
               a background in [your background], I bring a unique perspective to every project I work on.
             </p>
@@ -424,7 +400,7 @@ export default function Portfolio() {
 
       {/* Projects Section */}
       <main
-        className={`min-h-screen ${theme === "dark" ? "bg-[#121212] text-white" : "bg-white text-black"} px-4 md:px-8 py-12 transition-colors duration-300`}
+        className="min-h-screen bg-[#121212] text-white px-4 md:px-8 py-12 transition-colors duration-300"
       >
         <div className="max-w-6xl mx-auto">
           {/* Project 1 */}
@@ -436,7 +412,7 @@ export default function Portfolio() {
                 <br />
                 E-Commerce Website
               </h3>
-              <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-600"} max-w-md`}>
+              <p className="text-gray-400 max-w-md">
                 A comprehensive e-commerce platform designed for a premium footwear brand, featuring advanced filtering,
                 user accounts, and seamless checkout experience.
               </p>
@@ -463,7 +439,7 @@ export default function Portfolio() {
                 <br />
                 Clone App
               </h3>
-              <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-600"} max-w-md`}>
+              <p className="text-gray-400 max-w-md">
                 A mobile application for an essential oils company that provides personalized recommendations and
                 special offers based on customer preferences and usage patterns.
               </p>
@@ -490,7 +466,7 @@ export default function Portfolio() {
                 <br />
                 Live Project
               </h3>
-              <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-600"} max-w-md`}>
+              <p className="text-gray-400 max-w-md">
                 A real-time streaming platform that connects creators with their audience through interactive features,
                 live chat, and monetization options for content creators.
               </p>
@@ -538,7 +514,7 @@ export default function Portfolio() {
         </div>
 
         <h5
-          className={`text-[30vw] uppercase font-medium ${theme === "dark" ? "text-white" : "text-black"} whitespace-nowrap -ml-[1500px]`}
+          className="text-[30vw] uppercase font-medium text-white whitespace-nowrap -ml-[1500px]"
           style={{ transform: "rotate(180deg)" }}
         >
           LET'S TALK
@@ -548,7 +524,7 @@ export default function Portfolio() {
       {/* Contact Section */}
       <div
         id="contact-section"
-        className={`w-full ${theme === "dark" ? "bg-[#121212] text-white" : "bg-white text-black"} py-16 relative transition-colors duration-300`}
+        className="w-full bg-[#121212] text-white py-16 relative transition-colors duration-300"
       >
         <div className="container mx-auto px-6">
           {/* Connect Text */}
@@ -591,7 +567,7 @@ export default function Portfolio() {
                     ></path>
                   </mask>
                   <g mask="url(#cs_mask_1_wheel-3)">
-                    <path fill={theme === "dark" ? "#fff" : "#121212"} d="M200 0H0v200h200V0z"></path>
+                    <path fill="#fff" d="M200 0H0v200h200V0z"></path>
                     <path fill="url(#paint0_linear_748_4839)" fillOpacity="0.55" d="M200 0H0v200h200V0z"></path>
                     <g filter="url(#filter0_f_748_4839)">
                       <path fill="#18A0FB" d="M131 3H-12v108h143V3z"></path>
@@ -652,7 +628,7 @@ export default function Portfolio() {
                 href="https://www.linkedin.com/in/fasalu-rahmanp/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${theme === "dark" ? "text-white" : "text-black"}`}
+                className="font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 text-white"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -676,7 +652,7 @@ export default function Portfolio() {
                 href="https://github.com/FasaluRahmanP"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${theme === "dark" ? "text-white" : "text-black"}`}
+                className="font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 text-white"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -697,7 +673,7 @@ export default function Portfolio() {
               </Link>
               <a
                 href="mailto:fasalu2003p@gmail.com"
-                className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${theme === "dark" ? "text-white" : "text-black"}`}
+                className="font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 text-white"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -719,8 +695,7 @@ export default function Portfolio() {
               <a
                 href="/FasaluRahman_Resume.pdf"
                 download="FasaluRahman_Resume.pdf"
-                className={`font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 ${theme === "dark" ? "text-white" : "text-black"
-                  }`}
+                className="font-abel text-lg hover:text-[#d1ff4f] transition-colors flex items-center gap-2 text-white"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -734,6 +709,7 @@ export default function Portfolio() {
                   strokeLinejoin="round"
                   className="lucide lucide-file-text"
                 >
+
                   <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
                   <polyline points="14 2 14 8 20 8" />
                   <line x1="16" x2="8" y1="13" y2="13" />
@@ -754,7 +730,7 @@ export default function Portfolio() {
               <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M30 5V55M30 5L10 25M30 5L50 25"
-                  stroke={theme === "dark" ? "white" : "black"}
+                  stroke="currentColor"
                   strokeWidth="5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
