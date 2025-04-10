@@ -87,12 +87,12 @@ export default function Portfolio() {
             dragLabel.style.position = "absolute"
             dragLabel.style.top = "-40px"
             dragLabel.style.left = "0"
-            dragLabel.style.backgroundColor = "white"
-            dragLabel.style.color = "black"
+            dragLabel.style.backgroundColor = "#FF5C5C"
+            dragLabel.style.color = "white"
             dragLabel.style.padding = "8px 16px"
             dragLabel.style.borderRadius = "20px"
             dragLabel.style.fontSize = "14px"
-            dragLabel.style.fontWeight = "500"
+            dragLabel.style.fontWeight = "700"
             dragLabel.style.zIndex = "100"
             this.target.appendChild(dragLabel)
           },
@@ -345,9 +345,9 @@ export default function Portfolio() {
       {/* Experience Section */}
       <div id="experience-section" ref={experienceRef} className="h-screen w-full overflow-hidden">
         <h1
-          className={`text-[40vw] uppercase font-medium ${theme === "dark" ? "text-white" : "text-black"} whitespace-nowrap`}
+          className={`text-[40vw] uppercase font-zitti font-semibold ${theme === "dark" ? "text-white" : "text-black"} whitespace-nowrap`}
         >
-          PORTFOLIO
+          PORTFOL!O
         </h1>
       </div>
 
